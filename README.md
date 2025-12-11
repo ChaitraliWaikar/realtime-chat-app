@@ -36,3 +36,27 @@ Vanilla version → https://your-app.onrender.com
 **Zero TypeScript. Zero heavy frameworks. Only 4 npm packages total.**
 
 ## Project Structure
+├── frontend/              # React client
+│   └── src/
+├── public/                # Vanilla client (served at root)
+│   ├── index.html
+│   └── styles.css
+├── controllers/           # Message logic
+├── routes/                # Express routes
+├── server.js              # Unified backend
+├── package.json
+└── .env.example
+
+
+## Running Locally
+
+```bash
+# Start backend (serves vanilla client + Socket.IO + API)
+node server.js
+# → Vanilla client: http://localhost:5000
+
+# Run React version (optional)
+cd frontend
+npm install
+npm start
+# → React client: http://localhost:3000
