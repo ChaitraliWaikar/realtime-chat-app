@@ -37,14 +37,23 @@ Vanilla version → https://your-app.onrender.com
 
 ## Project Structure
 ├── frontend/              # React client
+
 │   └── src/
+
 ├── public/                # Vanilla client (served at root)
+
 │   ├── index.html
+
 │   └── styles.css
+
 ├── controllers/           # Message logic
+
 ├── routes/                # Express routes
+
 ├── server.js              # Unified backend
+
 ├── package.json
+
 └── .env.example
 
 
