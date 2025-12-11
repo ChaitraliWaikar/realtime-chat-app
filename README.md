@@ -37,24 +37,24 @@ Vanilla version → https://your-app.onrender.com
 
 ## Project Structure
 realtime-chat-app/
-├── backend/                    # Node.js + Express + Socket.IO server
+├── backend/
 │   ├── controllers/
 │   │   └── messageControllers.js
 │   ├── routes/
 │   │   └── messageRoutes.js
-│   ├── public/                 # Vanilla HTML/CSS/JS client (served directly)
+│   ├── public/                  # Vanilla HTML/CSS/JS client (served at root)
 │   │   ├── index.html
 │   │   └── styles.css
 │   ├── .env
 │   ├── .gitignore
 │   ├── package-lock.json
 │   ├── package.json
-│   └── server.js               # Main backend (Socket.IO + REST API)
+│   └── server.js                # Main server – Socket.IO + Express + REST API
 │
-├── frontend/                   # React client (modern UI)
+├── frontend/
 │   ├── public/
 │   │   ├── index.html
-│   │   └── ...
+│   │   └── ...                  # React public assets
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── Chat.js
@@ -67,12 +67,12 @@ realtime-chat-app/
 │   │   ├── index.js
 │   │   └── index.css
 │   ├── package.json
-│   └── ...
+│   ├── .gitignore
+│   └── ...                      # Other React files (node_modules, etc.)
 │
 ├── .gitignore
 ├── README.md
-└── (optional) .env.example
-
+└── .env.example (optional)
 ## Running Locally
 
 ```bash
