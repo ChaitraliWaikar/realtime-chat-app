@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real Time Chat</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Real Time Chat</h1>
+        <div class="status" id="status">Connecting...</div>
+      </div>
+
+      <div id="messages"></div>
+      <div class="typing" id="typing"></div>
+
+      <div class="input-area">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Your name..."
+          value="User"
+        />
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Type your message..."
+        />
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const messagesDiv = document.getElementById("messages");
+      const messageInput = document.getElementById("messageInput");
+      const userInput = document.getElementById("userInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const statusDiv = document.getElementById("status");
+      const typingDiv = document.getElementById("typing");
+
+      let typingTimeout;
+
+      // Connection status
+      socket.on("connect", () => {
+        statusDiv.textContent = "🟢 Connected";
+        console.log("Connected to server");
+      });
+
+      socket.on("disconnect", () => {
+        statusDiv.textContent = "🔴 Disconnected";
+        console.log("Disconnected from server");
+      });
+
+      // Receive system messages
+      socket.on("message", (data) => {
+        displayMessage(data, "system");
+      });
+
+      // Receive chat messages
+      socket.on("receiveMessage", (data) => {
+        const currentUser = userInput.value.trim() || "User";
+        const messageType = data.user === currentUser ? "sent" : "received";
+        displayMessage(data, messageType);
+      });
+
+      // Typing indicator
+      socket.on("userTyping", (data) => {
+        typingDiv.textContent = `${data.user} is typing...`;
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(() => {
+          typingDiv.textContent = "";
+        }, 2000);
+      });
+
+      // Display message
+      function displayMessage(data, type) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${type}`;
+
+        if (type !== "system") {
+          messageDiv.innerHTML = `
+          <div class="message-user">${data.user}</div>
+          <div class="message-text">${data.text}</div>
+          <div class="message-time">${new Date(
+            data.timestamp
+          ).toLocaleTimeString()}</div>
+        `;
+        } else {
+          messageDiv.innerHTML = `<div class="message-text">${data.text}</div>`;
+        }
+
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+
+      // Send message
+      function sendMessage() {
+        const text = messageInput.value.trim();
+        const user = userInput.value.trim() || "User";
+
+        if (text) {
+          socket.emit("sendMessage", { text, user });
+          messageInput.value = "";
+        }
+      }
+
+      // Event listeners
+      sendBtn.addEventListener("click", sendMessage);
+
+      messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      messageInput.addEventListener("input", () => {
+        const user = userInput.value.trim() || "User";
+        socket.emit("typing", { user });
+      });
+    </script>
+  </body>
+</html>
