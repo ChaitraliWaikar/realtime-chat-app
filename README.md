@@ -10,7 +10,9 @@ Both clients are production-ready, fully synchronized in real time, and connect 
 
 **Live Demos**  
 React version → [https://your-app.vercel.app ](https://realtime-chat-app-71wk.onrender.com/) 
+
 Vanilla version → Test it out using index.html file from the backend/public folder
+
 ## Key Features
 
 - Instant bidirectional messaging via WebSockets
