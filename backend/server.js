@@ -17,15 +17,14 @@ const io = new Server(server, {
 });
 const PORT = process.env.PORT || 5000; //local port
 
-// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
 const path = require('path');
+
+// 1. Serve static files from the React build folder
 app.use('/react', express.static(path.join(__dirname, '../frontend/frontend/build')));
-app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/react')) {
-    res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
-  } else {
-    next();
-  }
+
+// 2. Handle ALL routes that start with /react (this is the correct way)
+app.use('/react', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
 });
 
 // middleware
