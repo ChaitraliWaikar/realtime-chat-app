@@ -17,14 +17,15 @@ const io = new Server(server, {
 });
 const PORT = process.env.PORT || 5000; //local port
 
+// ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
 const path = require('path');
-
-// Serve static files
 app.use('/react', express.static(path.join(__dirname, '../frontend/frontend/build')));
-
-// Catch-all handler – this replaces the broken '/react/*'
-app.get('/react*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/react')) {
+    res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
+  } else {
+    next();
+  }
 });
 
 // middleware
