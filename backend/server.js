@@ -17,6 +17,16 @@ const io = new Server(server, {
 });
 const PORT = process.env.PORT || 5000; //local port
 
+const path = require('path');
+
+// Serve static files
+app.use('/react', express.static(path.join(__dirname, '../frontend/frontend/build')));
+
+// Catch-all handler – this replaces the broken '/react/*'
+app.get('/react*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
+});
+
 // middleware
 app.use(cors());
 app.use(express.json());
@@ -108,16 +118,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ---------------------------------------------------------------
-const path = require('path');
-
-// Serve static files from React build
-app.use('/react', express.static(path.join(__dirname, '../frontend/frontend/build')));
-
-// Catch-all for React Router (must be after static)
-app.get('/react/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
-});
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
