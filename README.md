@@ -36,27 +36,43 @@ Vanilla version → https://your-app.onrender.com
 **Zero TypeScript. Zero heavy frameworks. Only 4 npm packages total.**
 
 ## Project Structure
-├── frontend/              # React client
-
-│   └── src/
-
-├── public/                # Vanilla client (served at root)
-
-│   ├── index.html
-
-│   └── styles.css
-
-├── controllers/           # Message logic
-
-├── routes/                # Express routes
-
-├── server.js              # Unified backend
-
-├── package.json
-
-└── .env.example
-
-
+realtime-chat-app/
+├── backend/
+│   ├── controllers/
+│   │   └── messageControllers.js
+│   ├── routes/
+│   │   └── messageRoutes.js
+│   ├── public/                  # Vanilla HTML/CSS/JS client (served at root)
+│   │   ├── index.html
+│   │   └── styles.css
+│   ├── .env
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js                # Main server – Socket.IO + Express + REST API
+│
+├── frontend/
+│   ├── public/
+│   │   ├── index.html
+│   │   └── ...                  # React public assets
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Chat.js
+│   │   │   ├── ChatInput.js
+│   │   │   ├── ChatInput.css
+│   │   │   ├── MessageList.js
+│   │   │   └── MessageList.css
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   ├── index.js
+│   │   └── index.css
+│   ├── package.json
+│   ├── .gitignore
+│   └── ...                      # Other React files (node_modules, etc.)
+│
+├── .gitignore
+├── README.md
+└── .env.example (optional)
 ## Running Locally
 
 ```bash
