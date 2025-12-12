@@ -6,15 +6,6 @@ const { Server } = require("socket.io");
 const { addMessage } = require("./controllers/messageControllers");
 const { time } = require("console");
 const { send } = require("process");
-const path = require('path');
-
-// Serve React app at /react
-app.use('/react', express.static(path.join(__dirname, '../frontend/frontend/build')));
-
-// Catch-all handler: send back React's index.html for any route under /react
-app.get('/react/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
-});
 
 // dotenv in our server.js
 require("dotenv").config();
@@ -117,6 +108,18 @@ app.use((err, req, res, next) => {
   });
 });
 
+// ---------------------------------------------------------------
+const path = require('path');
+
+// Serve static files from React build
+app.use('/react', express.static(path.join(__dirname, '../frontend/frontend/build')));
+
+// Catch-all for React Router (must be after static)
+app.get('/react/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/frontend/build/index.html'));
+});
+
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
