@@ -6,9 +6,10 @@ const { Server } = require("socket.io");
 const { addMessage } = require("./controllers/messageControllers");
 const { time } = require("console");
 const { send } = require("process");
+const path = require("path");
 
 // dotenv in our server.js
-require("dotenv").config()
+require("dotenv").config();
 
 const app = express();
 const server = http.createServer(app); // Create HTTP server
@@ -38,6 +39,12 @@ app.get("/", (req, res) => {
       testClient: "GET /index.html",
     },
   });
+});
+
+// Serve React build at /react (after building it)
+app.use("/react", express.static(path.join(__dirname, "../frontend/build")));
+app.get("/react/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
 
 io.on("connection", (socket) => {
