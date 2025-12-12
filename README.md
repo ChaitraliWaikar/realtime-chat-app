@@ -9,9 +9,8 @@ A full-stack, real-time chat application built **entirely with JavaScript** — 
 Both clients are production-ready, fully synchronized in real time, and connect to the exact same server.
 
 **Live Demos**  
-React version → https://your-app.vercel.app  
-Vanilla version → https://your-app.onrender.com
-
+React version → [https://your-app.vercel.app ](https://realtime-chat-app-71wk.onrender.com/) 
+Vanilla version → Test it out using index.html file from the backend/public folder
 ## Key Features
 
 - Instant bidirectional messaging via WebSockets
