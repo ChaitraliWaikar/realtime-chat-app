@@ -6,9 +6,9 @@ A full-stack, real-time chat application built **entirely with JavaScript** — 
 - Alternative frontend: **Vanilla **HTML + CSS + JavaScript** (zero dependencies, served directly)
 - Shared backend: **Node.js + Express + Socket.IO** with REST API and in-memory message store
 
-Both clients are production-ready, fully synchronized in real time, and connect to the exact same server.
+Open link in multiple tabs or phones — send a message in one and watch it appear instantly in the others. No build, no install.
 
-**Live Demos**  
+**Live Demo**  
 React version → [https://your-app.vercel.app ](https://realtime-chat-app-71wk.onrender.com/) 
 
 Vanilla version → Test it out using index.html file from the backend/public folder
